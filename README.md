@@ -66,4 +66,12 @@ py -3 scripts/smoke_render.py
 
 ## Provenance And Licensing
 
-See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md). The legal posture here is intentionally narrow and cautious: this repo should be handled as GPL-derived helper code for local research or tooling workflows. The neutral runtime name does not change the underlying provenance or license obligations.
+See [LICENSE](LICENSE), [NOTICE.md](NOTICE.md), and [UPSTREAM_PROVENANCE.md](UPSTREAM_PROVENANCE.md).
+
+Legal posture adopted for this repository:
+
+- This repository is distributed under a conservative GPL helper-repository posture.
+- The full text currently shipped in `LICENSE` is the GNU General Public License, Version 3.
+- The repository's own evidence supports treating the code as GPL-derived helper code, but it does **not** prove that the exact upstream source-version mapping for every copied or transliterated segment has already been fully reconstructed.
+- Until a more complete provenance review is documented, treat this repository as GPL-governed helper code for local research or tooling workflows, not as commercially cleared product-runtime code.
+- The neutral runtime name does not change the underlying provenance or license obligations.
