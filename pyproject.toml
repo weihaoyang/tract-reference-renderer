@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vtl-gpl-tract-visualizer"
+version = "0.1.0"
+description = "Standalone GPL helper service for VocalTractLab-style tract SVG rendering."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2,<3",
+    "websockets>=12,<16",
+]
+
+[project.scripts]
+vtl-gpl-tract-server = "vtl_renderer.server:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

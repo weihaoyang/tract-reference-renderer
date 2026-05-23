@@ -1,0 +1,8 @@
+GPL-related provenance notice for this repository
+===============================================
+
+This repository contains GPL research/helper code, including copied or transliterated VocalTractLab-style geometry and rendering logic.
+
+No claim is made here that the underlying geometry/rendering lineage is newly authored or relicensed into a permissive form. Until a fuller legal review says otherwise, treat the repository as GPL helper code and keep it isolated from non-GPL product/runtime distribution paths.
+
+You should add the exact upstream license text and attribution chain that matches the copied source lineage before any broader redistribution. This file is a factual cautionary notice, not a substitute for that upstream license text.
