@@ -1,4 +1,4 @@
-"""Standalone GPL helper package for local tract SVG rendering."""
+"""Standalone local reference renderer package for tract SVG rendering."""
 
 from .renderer import (
     DEFAULT_HEIGHT_PX,

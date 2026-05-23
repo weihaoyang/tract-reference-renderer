@@ -1,4 +1,4 @@
-# vtl-gpl-tract-visualizer
+# tract-reference-renderer
 
 Small standalone Python helper package and localhost WebSocket service for rendering midsagittal tract SVGs from 19D tract parameter vectors.
 
@@ -9,7 +9,7 @@ This repository contains GPL research/helper code, including copied or translite
 ## What It Does
 
 - exposes a Python API for rendering tract SVG from a 19-parameter vector
-- runs a local WebSocket server on `127.0.0.1:8765`
+- runs a local WebSocket server on `127.0.0.1:8076`
 - accepts JSON requests with:
   - `request_id: string`
   - `current_tract_params: array[19]`
@@ -28,14 +28,22 @@ This repository contains GPL research/helper code, including copied or translite
 ## Install
 
 ```powershell
-cd F:\vtl-gpl-tract-visualizer
+cd F:\tract-reference-renderer
 py -3 -m pip install -e .
 ```
 
 ## Run The Server
 
 ```powershell
-cd F:\vtl-gpl-tract-visualizer
+cd F:\tract-reference-renderer
+py -3 -m vtl_renderer
+```
+
+Optional host/port override:
+
+```powershell
+$env:TRACT_RENDERER_HOST = "127.0.0.1"
+$env:TRACT_RENDERER_PORT = "8876"
 py -3 -m vtl_renderer
 ```
 
@@ -52,10 +60,10 @@ py -3 -m vtl_renderer
 ## Smoke Test
 
 ```powershell
-cd F:\vtl-gpl-tract-visualizer
+cd F:\tract-reference-renderer
 py -3 scripts/smoke_render.py
 ```
 
 ## Provenance And Licensing
 
-See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md). The legal posture here is intentionally narrow and cautious: this repo should be handled as GPL-derived helper code for local research or tooling workflows.
+See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md). The legal posture here is intentionally narrow and cautious: this repo should be handled as GPL-derived helper code for local research or tooling workflows. The neutral runtime name does not change the underlying provenance or license obligations.
