@@ -7,11 +7,11 @@ import os
 
 from websockets.asyncio.client import connect
 
-from vtl_renderer.renderer import neutral_param_vector
+from tract_reference_renderer.renderer import neutral_param_vector
 
 
 async def main() -> None:
-    port = os.environ.get("TRACT_RENDERER_PORT", os.environ.get("VTL_GPL_TRACT_PORT", "8076"))
+    port = os.environ.get("TRACT_RENDERER_PORT", "8076")
     payload = {
         "request_id": "smoke-ws-1",
         "current_tract_params": neutral_param_vector(),

@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from vtl_renderer.renderer import neutral_param_vector, render_tract_svg
+from tract_reference_renderer.renderer import neutral_param_vector, render_tract_svg
 
 
 def main() -> None:

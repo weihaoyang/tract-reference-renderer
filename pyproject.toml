@@ -14,7 +14,7 @@ dependencies = [
 ]
 
 [project.scripts]
-tract-reference-renderer = "vtl_renderer.server:main"
+tract-reference-renderer = "tract_reference_renderer.server:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

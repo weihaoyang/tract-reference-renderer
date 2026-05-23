@@ -4,7 +4,7 @@ Small standalone Python helper package and localhost WebSocket service for rende
 
 ## Scope
 
-This repository contains GPL research/helper code, including copied or transliterated VocalTractLab-style geometry and rendering logic under `src/vtl_renderer/`. Treat it as a local research/helper service, not product-runtime code.
+This repository contains GPL research/helper code, including copied or transliterated VocalTractLab-style geometry and rendering logic under `src/tract_reference_renderer/`. Treat it as a local research/helper service, not product-runtime code.
 
 ## What It Does
 
@@ -36,7 +36,7 @@ py -3 -m pip install -e .
 
 ```powershell
 cd F:\tract-reference-renderer
-py -3 -m vtl_renderer
+py -3 -m tract_reference_renderer
 ```
 
 Optional host/port override:
@@ -44,7 +44,7 @@ Optional host/port override:
 ```powershell
 $env:TRACT_RENDERER_HOST = "127.0.0.1"
 $env:TRACT_RENDERER_PORT = "8876"
-py -3 -m vtl_renderer
+py -3 -m tract_reference_renderer
 ```
 
 ## Example Request

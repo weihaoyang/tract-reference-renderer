@@ -9,8 +9,8 @@ from websockets.asyncio.server import serve
 
 from .renderer import DEFAULT_HEIGHT_PX, DEFAULT_WIDTH_PX, render_svg_pair
 
-HOST = os.environ.get("TRACT_RENDERER_HOST", os.environ.get("VTL_GPL_TRACT_HOST", "127.0.0.1"))
-PORT = int(os.environ.get("TRACT_RENDERER_PORT", os.environ.get("VTL_GPL_TRACT_PORT", "8076")))
+HOST = os.environ.get("TRACT_RENDERER_HOST", "127.0.0.1")
+PORT = int(os.environ.get("TRACT_RENDERER_PORT", "8076"))
 
 
 def _error_response(request_id: str, error: str) -> Dict[str, Any]:
