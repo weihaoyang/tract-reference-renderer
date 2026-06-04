@@ -4,4 +4,5 @@ __pycache__/
 *.pyd
 .pytest_cache/
 smoke_output/
+dist/
 *.egg-info/

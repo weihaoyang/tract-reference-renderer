@@ -16,6 +16,10 @@ dependencies = [
 [project.scripts]
 tract-reference-renderer = "tract_reference_renderer.server:main"
 
+[tool.tract-reference-renderer]
+protocol-version = "coach.reference_renderer.v1"
+license-status = "external_gpl_helper"
+
 [tool.setuptools]
 package-dir = {"" = "src"}
 

@@ -7,6 +7,7 @@ from typing import Any, Dict
 
 from websockets.asyncio.server import serve
 
+from .protocol import HELPER_VERSION, PROTOCOL_VERSION, build_health_payload
 from .renderer import DEFAULT_HEIGHT_PX, DEFAULT_WIDTH_PX, render_svg_pair
 
 HOST = os.environ.get("TRACT_RENDERER_HOST", "127.0.0.1")
@@ -24,6 +25,12 @@ def _error_response(request_id: str, error: str) -> Dict[str, Any]:
 
 
 def _handle_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+    request_type = payload.get("type") or payload.get("request_type")
+    if request_type == "health":
+        request_id = payload.get("request_id", "")
+        health_payload = build_health_payload()
+        health_payload["request_id"] = request_id if isinstance(request_id, str) else ""
+        return health_payload
     request_id = payload.get("request_id")
     if not isinstance(request_id, str) or request_id == "":
         return _error_response("", "request_id must be a non-empty string")
@@ -47,6 +54,8 @@ def _handle_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "request_id": request_id,
         "status": "ok",
+        "helper_version": HELPER_VERSION,
+        "protocol_version": PROTOCOL_VERSION,
         "current_svg": result["current_svg"],
         "target_svg": result["target_svg"],
         "width_px": result["width_px"],

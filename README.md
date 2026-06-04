@@ -39,6 +39,12 @@ cd F:\tract-reference-renderer
 py -3 -m tract_reference_renderer
 ```
 
+Windows helper script:
+
+```powershell
+.\scripts\start_renderer.ps1 -HostName 127.0.0.1 -Port 8076
+```
+
 Optional host/port override:
 
 ```powershell
@@ -63,6 +69,24 @@ py -3 -m tract_reference_renderer
 cd F:\tract-reference-renderer
 py -3 scripts/smoke_render.py
 ```
+
+## Health Request
+
+Send this JSON over the local WebSocket:
+
+```json
+{"type": "health", "request_id": "health-1"}
+```
+
+The response includes helper version, protocol version, license status, IPC boundary, and truth-tier fields. The renderer is a reference visualization helper only; it does not release clinical or patient-truth claims.
+
+## Release Package
+
+```powershell
+py -3 scripts/build_release_package.py --version 0.1.0
+```
+
+Artifacts are written under `dist/` and are intended for the helper repository GitHub release, not for bundling into the product runtime.
 
 ## Provenance And Licensing
 
