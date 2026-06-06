@@ -9,12 +9,14 @@ This repository contains GPL research/helper code, including copied or translite
 ## What It Does
 
 - exposes a Python API for rendering tract SVG from a 19-parameter vector
+- exposes helper-owned Lab control drag solve requests for interactive 2D fitting workflows
 - runs a local WebSocket server on `127.0.0.1:8076`
 - accepts JSON requests with:
   - `request_id: string`
   - `current_tract_params: array[19]`
   - `target_tract_params?: array[19]`
   - `render_target?: "current" | "target" | "both"`
+  - `type?: "health" | "list_controls" | "drag_solve" | "multi_drag_solve"`
 - returns JSON with:
   - `request_id`
   - `status: "ok" | "error"`
@@ -23,6 +25,8 @@ This repository contains GPL research/helper code, including copied or translite
   - `width_px`
   - `height_px`
   - `diagnostics?`
+  - `solve?`
+  - `controls?`
   - `error?`
 
 ## Install
@@ -79,6 +83,24 @@ Send this JSON over the local WebSocket:
 ```
 
 The response includes helper version, protocol version, license status, IPC boundary, and truth-tier fields. The renderer is a reference visualization helper only; it does not release clinical or patient-truth claims.
+
+## Drag Solve Request
+
+Send this JSON over the local WebSocket:
+
+```json
+{
+  "type": "drag_solve",
+  "request_id": "drag-1",
+  "current_tract_params": [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.0, 0.0, 0.0],
+  "control_id": "tongue_body_handle",
+  "x_cm": 0.52,
+  "y_cm": 0.62,
+  "z_cm": 0.0
+}
+```
+
+The response returns `solve.parameter_values` keyed by the 19D parameter names (`HX`, `HY`, `JX`, ...), a `current_svg`, helper provenance, and `truth_tier: reference_interaction_not_patient_truth`. The solve is an interactive reference-helper projection, not patient anatomy, clinical truth, or a robot execution release.
 
 ## Release Package
 

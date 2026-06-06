@@ -8,6 +8,7 @@ from typing import Any, Dict
 from websockets.asyncio.server import serve
 
 from .protocol import HELPER_VERSION, PROTOCOL_VERSION, build_health_payload
+from .drag_solver import list_drag_controls, solve_drag, solve_multi_drag
 from .renderer import DEFAULT_HEIGHT_PX, DEFAULT_WIDTH_PX, render_svg_pair
 
 HOST = os.environ.get("TRACT_RENDERER_HOST", "127.0.0.1")
@@ -34,6 +35,52 @@ def _handle_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     request_id = payload.get("request_id")
     if not isinstance(request_id, str) or request_id == "":
         return _error_response("", "request_id must be a non-empty string")
+    if request_type == "list_controls":
+        return {
+            "request_id": request_id,
+            "status": "ok",
+            "helper_version": HELPER_VERSION,
+            "protocol_version": PROTOCOL_VERSION,
+            "controls": list_drag_controls(),
+        }
+    if request_type == "drag_solve":
+        try:
+            solve = solve_drag(
+                control_id=str(payload.get("control_id", "")),
+                target_xyz_cm=payload.get(
+                    "target_xyz_cm",
+                    (payload.get("x_cm", 0.0), payload.get("y_cm", 0.0), payload.get("z_cm", 0.0)),
+                ),
+                tract_params=payload.get("current_tract_params", payload.get("tract_params", [])),
+                width_px=int(payload.get("width_px", DEFAULT_WIDTH_PX)),
+                height_px=int(payload.get("height_px", DEFAULT_HEIGHT_PX)),
+            )
+        except Exception as exc:
+            return _error_response(request_id, str(exc))
+        return {
+            "request_id": request_id,
+            "status": "ok",
+            "helper_version": HELPER_VERSION,
+            "protocol_version": PROTOCOL_VERSION,
+            "solve": solve,
+        }
+    if request_type == "multi_drag_solve":
+        try:
+            solve = solve_multi_drag(
+                drag_targets=payload.get("drag_targets", []),
+                tract_params=payload.get("current_tract_params", payload.get("tract_params", [])),
+                width_px=int(payload.get("width_px", DEFAULT_WIDTH_PX)),
+                height_px=int(payload.get("height_px", DEFAULT_HEIGHT_PX)),
+            )
+        except Exception as exc:
+            return _error_response(request_id, str(exc))
+        return {
+            "request_id": request_id,
+            "status": "ok",
+            "helper_version": HELPER_VERSION,
+            "protocol_version": PROTOCOL_VERSION,
+            "solve": solve,
+        }
     current_tract_params = payload.get("current_tract_params")
     target_tract_params = payload.get("target_tract_params")
     render_target = payload.get("render_target", "current")
