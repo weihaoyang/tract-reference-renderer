@@ -1,6 +1,6 @@
 # tract-reference-renderer
 
-Small standalone Python helper package and localhost WebSocket service for rendering midsagittal tract SVGs from 19D tract parameter vectors.
+Small standalone Python helper package and localhost WebSocket service for rendering midsagittal tract SVGs and helper-owned 3D tract meshes from 19D tract parameter vectors.
 
 ## Scope
 
@@ -10,8 +10,10 @@ This repository contains GPL research/helper code, including copied or translite
 
 - exposes a Python API for rendering tract SVG from a 19-parameter vector
 - exposes helper-owned Lab control drag solve requests for interactive 2D fitting workflows
+- exposes `geometry_3d` WebSocket responses with surface meshes and lip paths for product UIs that must not use an internal geometry fallback
 - runs a local WebSocket server on `127.0.0.1:8076`
 - accepts JSON requests with:
+  - `type?: "geometry_3d" | "health"`
   - `request_id: string`
   - `current_tract_params: array[19]`
   - `target_tract_params?: array[19]`
@@ -22,6 +24,7 @@ This repository contains GPL research/helper code, including copied or translite
   - `status: "ok" | "error"`
   - `current_svg?`
   - `target_svg?`
+  - `surfaces?` and `paths?` for `type: "geometry_3d"`
   - `width_px`
   - `height_px`
   - `diagnostics?`
