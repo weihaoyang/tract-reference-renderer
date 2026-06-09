@@ -9,6 +9,7 @@ from websockets.asyncio.server import serve
 
 from .protocol import HELPER_VERSION, PROTOCOL_VERSION, build_health_payload
 from .drag_solver import list_drag_controls, solve_drag, solve_multi_drag
+from .mesh3d import build_tract_mesh3d_payload
 from .renderer import DEFAULT_HEIGHT_PX, DEFAULT_WIDTH_PX, render_svg_pair
 
 HOST = os.environ.get("TRACT_RENDERER_HOST", "127.0.0.1")
@@ -80,6 +81,20 @@ def _handle_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
             "helper_version": HELPER_VERSION,
             "protocol_version": PROTOCOL_VERSION,
             "solve": solve,
+        }
+    if request_type == "geometry_3d":
+        try:
+            result = build_tract_mesh3d_payload(
+                payload.get("current_tract_params", payload.get("tract_params", [])),
+            )
+        except Exception as exc:
+            return _error_response(request_id, str(exc))
+        return {
+            "request_id": request_id,
+            "status": "ok",
+            "helper_version": HELPER_VERSION,
+            "protocol_version": PROTOCOL_VERSION,
+            **result,
         }
     current_tract_params = payload.get("current_tract_params")
     target_tract_params = payload.get("target_tract_params")

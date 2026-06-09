@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from tract_reference_renderer.mesh3d import build_tract_mesh3d_payload
 from tract_reference_renderer.renderer import neutral_param_vector, render_tract_svg
 
 
@@ -25,6 +26,9 @@ def main() -> None:
     print(f"upper_outline_points={result.diagnostics.upper_outline_points}")
     print(f"lower_outline_points={result.diagnostics.lower_outline_points}")
     print(f"tongue_outline_points={result.diagnostics.tongue_outline_points}")
+    mesh3d = build_tract_mesh3d_payload(neutral_param_vector())
+    print(f"mesh3d_surfaces={len(mesh3d['surfaces'])}")
+    print(f"mesh3d_triangles={mesh3d['reference_renderer_diagnostics']['triangle_count']}")
 
 
 if __name__ == "__main__":
